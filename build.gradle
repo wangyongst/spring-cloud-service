@@ -41,4 +41,9 @@ targetCompatibility = 1.8
 
 dependencies {
     compile 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-server'
+    compile 'org.springframework.cloud:spring-cloud-starter-openfeign'
+    compile 'org.apache.tomcat:tomcat-jdbc'
+    compile "mysql:mysql-connector-java"
+    compile 'org.springframework.data:spring-data-jpa'
+    compile 'org.hibernate:hibernate-entitymanager'
 }
