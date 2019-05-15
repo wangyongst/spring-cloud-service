@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
     @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.DEFAULT, readOnly = false)
     public Result regist(User user) {
         logger.warn("this is a test");
-        User savedUser = userRepository.saveAndFlush(user);
+        User savedUser = userRepository.save(user);
         if(savedUser == null || savedUser.getId() ==null )  return resultService.createErrorWithDataAndMessage(user,"保存用户数据失败！");
         else return resultService.okWithMessage("User regist OK!");
     }
