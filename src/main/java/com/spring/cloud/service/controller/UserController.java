@@ -7,8 +7,6 @@ import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.print.Book;
-
 @Api(tags= "用户相关服务")
 @CrossOrigin("*")
 @RestController
