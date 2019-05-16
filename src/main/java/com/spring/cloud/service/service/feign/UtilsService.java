@@ -6,11 +6,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @FeignClient(value = "spring-cloud-utils")
-public interface DbService {
+public interface UtilsService {
+
+    @GetMapping("result/okWithMessage")
+    Result okWithMessage(@RequestParam("message") String message);
+
+    @GetMapping("result/createErrorWithMessage")
+    Result createErrorWithMessage( @RequestParam("message") String message);
+
+    @GetMapping("restful/get")
+    Result get(@RequestParam("url") String url);
 
     @GetMapping("db/createId")
     Result createId();
 
     @GetMapping("db/formatTime")
     Result formatTime(@RequestParam("time") long time);
+
 }
