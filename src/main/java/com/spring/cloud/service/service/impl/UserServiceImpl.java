@@ -31,17 +31,24 @@ public class UserServiceImpl implements UserService {
     @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.DEFAULT, readOnly = false)
     public Result regist(User user) {
         Result result = new Result();
+        //日志使用方法
         logger.warn("this is a test");
+        //数据库id生成方法-调用utils微服务，所有系统统一这种办法
         user.setId(utilsService.createId().getData().toString());
+        //时间格式化方法-调用utils微服务，所有系统统一这种办法
         user.setCreatetime(utilsService.formatTime(System.currentTimeMillis()).getData().toString());
+        //spring data jpa
         User savedUser = userRepository.save(user);
+        //请求外部接口方法-调用utils微服务，所有系统统一这种办法
         Result bookResult  = utilsService.get("https://api.douban.com/v2/book/isbn/9787208157408");
         System.out.println(bookResult.getData().toString());
+        //异常处理方法-调用utils微服务，所有系统统一这种办法
         if (savedUser == null || savedUser.getId() == null) {
             result = utilsService.createErrorWithMessage("创建用户数据失败！");
             result.setData(user);
             return result;
         } else {
+            //组装返回结果方法
             result = utilsService.okWithMessage("用户注册成功！");
             result.setData(savedUser);
             return result;
