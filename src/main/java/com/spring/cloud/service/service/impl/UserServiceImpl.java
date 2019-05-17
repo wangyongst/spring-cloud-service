@@ -32,11 +32,9 @@ public class UserServiceImpl implements UserService {
     //事务处理，查询操作不用写这个注解
     @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.DEFAULT, readOnly = false)
     public Result regist(User user) {
-        Result result = new Result();
         //先必须判断参数是否为空
         if(StringUtils.isBlank(user.getUsername()) || StringUtils.isBlank(user.getPassword()) || StringUtils.isBlank(user.getPhone())){
-            result = utilsService.parameterNotEnoughWithMessage("必须参数不能为空");
-            return  result;
+            return utilsService.parameterNotEnoughWithMessage("必须参数不能为空");
         }
         //日志使用方法
         logger.warn("this is a test");
@@ -51,12 +49,12 @@ public class UserServiceImpl implements UserService {
         System.out.println(bookResult.getData().toString());
         //异常处理方法-调用utils微服务，所有系统统一这种办法
         if (savedUser == null || savedUser.getId() == null) {
-            result = utilsService.createErrorWithMessage("创建用户数据失败！");
+            Result result = utilsService.createErrorWithMessage("创建用户数据失败！");
             result.setData(user);
             return result;
         } else {
             //组装返回结果方法
-            result = utilsService.okWithMessage("用户注册成功！");
+            Result result = utilsService.okWithMessage("用户注册成功！");
             result.setData(savedUser);
             return result;
         }
