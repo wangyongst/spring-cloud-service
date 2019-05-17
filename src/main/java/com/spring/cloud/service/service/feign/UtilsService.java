@@ -25,12 +25,12 @@ public interface UtilsService {
     Result formatTime(@RequestParam("time") long time);
 
     @GetMapping("db/parameterNotEnoughWithMessage")
-    Result parameterNotEnoughWithMessage(@RequestParam String message);
+    Result parameterNotEnoughWithMessage(@RequestParam("message") String message);
 
     @GetMapping(value = "result/jsonProcessingExceptionWithMessage")
-    public Result jsonProcessingExceptionWithMessage(@RequestParam String message);
+    public Result jsonProcessingExceptionWithMessage(@RequestParam("message") String message);
 
     @GetMapping(value = "result/ioExceptionWithMessage")
-    public Result ioExceptionWithMessage(@RequestParam String message);
+    public Result ioExceptionWithMessage(@RequestParam("message")String message);
 
 }

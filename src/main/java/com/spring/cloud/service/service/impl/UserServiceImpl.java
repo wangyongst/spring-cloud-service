@@ -3,6 +3,7 @@ package com.spring.cloud.service.service.impl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.spring.cloud.service.entity.User;
+import com.spring.cloud.service.mapper.UserMapper;
 import com.spring.cloud.service.repository.UserRepository;
 import com.spring.cloud.service.service.UserService;
 import com.spring.cloud.service.service.feign.UtilsService;
@@ -17,6 +18,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
+import java.util.List;
 
 
 @Service("UserService")
@@ -31,6 +33,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private UserMapper userMapper;
 
     @Override
     //事务处理，查询操作不用写这个注解
@@ -48,6 +53,10 @@ public class UserServiceImpl implements UserService {
         user.setCreatetime(utilsService.formatTime(System.currentTimeMillis()).getData().toString());
         //spring data jpa
         User savedUser = userRepository.save(user);
+        List<User> savedUsers = userMapper.findByUsername(user.getUsername());
+        savedUsers.forEach(e->{
+            System.out.println(e.getUsername() + "--" + e.getPassword());
+        });
         //请求外部接口方法-调用utils微服务，所有系统统一这种办法
         Result bookResult  = utilsService.get("https://api.douban.com/v2/book/isbn/9787208157408");
         System.out.println(bookResult.getData().toString());
