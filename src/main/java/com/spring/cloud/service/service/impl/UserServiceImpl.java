@@ -51,8 +51,9 @@ public class UserServiceImpl implements UserService {
         user.setId(utilsService.createId().getData().toString());
         //时间格式化方法-调用utils微服务，所有系统统一这种办法
         user.setCreatetime(utilsService.formatTime(System.currentTimeMillis()).getData().toString());
-        //spring data jpa
+        //spring data jpa写法
         User savedUser = userRepository.save(user);
+        //mybatis写法
         List<User> savedUsers = userMapper.findByUsername(user.getUsername());
         savedUsers.forEach(e->{
             System.out.println(e.getUsername() + "--" + e.getPassword());
