@@ -11,6 +11,7 @@ public interface UtilsService {
     @GetMapping("result/okWithMessage")
     Result okWithMessage(@RequestParam("message") String message);
 
+
     @GetMapping("result/createErrorWithMessage")
     Result createErrorWithMessage( @RequestParam("message") String message);
 
