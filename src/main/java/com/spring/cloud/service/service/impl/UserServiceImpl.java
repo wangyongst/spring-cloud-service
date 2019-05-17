@@ -1,5 +1,6 @@
 package com.spring.cloud.service.service.impl;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.spring.cloud.service.entity.User;
 import com.spring.cloud.service.repository.UserRepository;
 import com.spring.cloud.service.service.UserService;
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.io.IOException;
 
 
 @Service("UserService")
@@ -47,6 +50,11 @@ public class UserServiceImpl implements UserService {
         //请求外部接口方法-调用utils微服务，所有系统统一这种办法
         Result bookResult  = utilsService.get("https://api.douban.com/v2/book/isbn/9787208157408");
         System.out.println(bookResult.getData().toString());
+        //Json字符串转对象方法
+        ObjectMapper mapper = new ObjectMapper();
+        //User test = mapper.readValue(bookResult.getData().toString(), User.class);
+        //对象实例转Json方法
+        //String json = mapper.writeValueAsString(user);
         //异常处理方法-调用utils微服务，所有系统统一这种办法
         if (savedUser == null || savedUser.getId() == null) {
             Result result = utilsService.createErrorWithMessage("创建用户数据失败！");
