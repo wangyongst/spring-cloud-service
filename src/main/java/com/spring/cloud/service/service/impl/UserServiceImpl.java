@@ -1,5 +1,6 @@
 package com.spring.cloud.service.service.impl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.spring.cloud.service.entity.User;
 import com.spring.cloud.service.repository.UserRepository;
@@ -52,9 +53,17 @@ public class UserServiceImpl implements UserService {
         System.out.println(bookResult.getData().toString());
         //Json字符串转对象方法
         ObjectMapper mapper = new ObjectMapper();
-        //User test = mapper.readValue(bookResult.getData().toString(), User.class);
+        try {
+            User test = mapper.readValue(bookResult.getData().toString(), User.class);
+        } catch (IOException e) {
+           return utilsService.ioExceptionWithMessage(e.toString());
+        }
         //对象实例转Json方法
-        //String json = mapper.writeValueAsString(user);
+        try {
+            String json = mapper.writeValueAsString(user);
+        } catch (JsonProcessingException e) {
+            return utilsService.jsonProcessingExceptionWithMessage(e.toString());
+        }
         //异常处理方法-调用utils微服务，所有系统统一这种办法
         if (savedUser == null || savedUser.getId() == null) {
             Result result = utilsService.createErrorWithMessage("创建用户数据失败！");

@@ -27,4 +27,10 @@ public interface UtilsService {
     @GetMapping("db/parameterNotEnoughWithMessage")
     Result parameterNotEnoughWithMessage(@RequestParam String message);
 
+    @GetMapping(value = "result/jsonProcessingExceptionWithMessage")
+    public Result jsonProcessingExceptionWithMessage(@RequestParam String message);
+
+    @GetMapping(value = "result/ioExceptionWithMessage")
+    public Result ioExceptionWithMessage(@RequestParam String message);
+
 }
