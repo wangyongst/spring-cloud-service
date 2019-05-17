@@ -36,6 +36,7 @@ public class UserServiceImpl implements UserService {
         //先必须判断参数是否为空
         if(StringUtils.isBlank(user.getUsername()) || StringUtils.isBlank(user.getPassword()) || StringUtils.isBlank(user.getPhone())){
             result = utilsService.parameterNotEnoughWithMessage("必须参数不能为空");
+            return  result;
         }
         //日志使用方法
         logger.warn("this is a test");
