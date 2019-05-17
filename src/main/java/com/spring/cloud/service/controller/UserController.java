@@ -4,6 +4,7 @@ import com.spring.cloud.service.entity.User;
 import com.spring.cloud.service.service.UserService;
 import com.spring.cloud.service.utils.Result;
 import io.swagger.annotations.*;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

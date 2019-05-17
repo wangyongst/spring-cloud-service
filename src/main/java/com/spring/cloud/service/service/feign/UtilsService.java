@@ -24,4 +24,7 @@ public interface UtilsService {
     @GetMapping("db/formatTime")
     Result formatTime(@RequestParam("time") long time);
 
+    @GetMapping("db/parameterNotEnoughWithMessage")
+    Result parameterNotEnoughWithMessage(@RequestParam String message);
+
 }

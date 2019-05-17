@@ -5,6 +5,7 @@ import com.spring.cloud.service.repository.UserRepository;
 import com.spring.cloud.service.service.UserService;
 import com.spring.cloud.service.service.feign.UtilsService;
 import com.spring.cloud.service.utils.Result;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,10 @@ public class UserServiceImpl implements UserService {
     @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.DEFAULT, readOnly = false)
     public Result regist(User user) {
         Result result = new Result();
+        //先必须判断参数是否为空
+        if(StringUtils.isBlank(user.getUsername()) || StringUtils.isBlank(user.getPassword()) || StringUtils.isBlank(user.getPhone())){
+            result = utilsService.parameterNotEnoughWithMessage("必须参数不能为空");
+        }
         //日志使用方法
         logger.warn("this is a test");
         //数据库id生成方法-调用utils微服务，所有系统统一这种办法
